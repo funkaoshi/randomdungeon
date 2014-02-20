@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="lodash.min.js"></script>
+    <script type="text/javascript" src="rooms.js"></script>
+    <script type="text/javascript">
+        function sample(list, count) {
+            
+        }
+        $(function () {
+          // re-create the dungeon key as users change the room count
+          $('#rooms').keyup(function () {
+            // read the number of rooms from the input box
+            var $rooms = $(this);
+            var totalRooms = parseInt($rooms.val(), 10);
+            
+            // max the value out based on the number of descriptions that 
+            // are available.
+            if (totalRooms > ROOMS.length) {
+              totalRooms = ROOMS.length;
+              $rooms.val(totalRooms);
+            }
+            
+            // split rooms into empty and filled
+            var emptyRooms = Math.floor(totalRooms * 0.1);
+            var filledRooms = totalRooms - emptyRooms;
+
+            // we randomly sample from the list of room descriptions and
+            // empty room descriptions
+            var dungeon = _.last(_.shuffle(ROOMS), filledRooms);
+            dungeon = dungeon.concat(_.last(_.shuffle(EMPTY_ROOMS), emptyRooms));
+            
+            // build the dungeon HTML
+            var $dungeon = $("<ol id='dungeon'></ol>");
+            _(dungeon).shuffle().each(function (room) {
+              $dungeon.append($("<li>" + room + "</li>"));
+            });
+            $("#dungeon").replaceWith($dungeon);
+          }).keyup().focus();
+        });
+    </script>
+
+    <link href='http://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet' type='text/css'>
+
+    <style>
+        #content {
+            width:32em;
+            margin: 5em auto;
+        }
+
+        #rooms {
+            width: 2em;
+            border: 0;
+            border-bottom: 3px solid black;
+            text-align: center;
+        }
+
+        h1, ol {
+            font-family: 'Balthazar', serif;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        input {
+            font-size: 1em;
+        }
+        ol {
+            margin-bottom: 2em;
+            padding: 0;
+        }
+        li {
+            font-size: 1.2em;
+            line-height: 160%;
+        }
+
+        #footer {
+            font-size: 0.8em;
+            line-height: 160%;
+            color: #999;
+            text-align: center;
+        }
+        #footer a {
+            font-weight: bold;
+            text-decoration: none;
+            color: #999;
+        }
+    </style>
+    </head>
+<body>
+    <div id="content">
+        <h1>A Random Dungeon With <input id="rooms" value=10> rooms.</h1>
+        <ol id="dungeon">loading ...</ol>
+        <p id="footer">
+            A random dungeon crowd sourced on Google+ by <a href="http://dndwithpornstars.blogspot.ca/2014/02/stock-dungeon-with-rooms-that-dont-suck.html">Zak Smith</a>.
+            No map? <a href="http://donjon.bin.sh/fantasy/dungeon/">No problem.</a>
+            This site was created by <a href="http://funkaoshi.com/">Ramanan Sivaranjan</a>.
+            You might also enjoy my D&amp;D blog, <a href="http://save.vs.totalpartykill.ca/">Save vs. Total Party Kill</a>.
+        </p>
+    </div>
+</body>
+</html>
