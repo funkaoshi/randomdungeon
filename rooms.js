@@ -984,7 +984,7 @@ EMPTY_ROOMS = [
     "Throne Room",
     "Zoo",
     "Statuary",
-    "21Torture Chamber",
+    "Torture Chamber",
     "Trophy Room",
     "Seraglio",
     "Arena",
@@ -1005,10 +1005,10 @@ EMPTY_ROOMS = [
     "Bathroom",
     "Garage",
     "Treasury",
-    "42Bedroom",
-    "43Cistern Room",
+    "Bedroom",
+    "Cistern Room",
     "Tannery",
-    "45Closet",
+    "Closet",
     "Dining Room",
     "Dressing Room",
     "Foyer (Entry Room)",
@@ -1064,4 +1064,4 @@ EMPTY_ROOMS = [
     "Solar",
     "Summoning Room",
     "Kitchen"
-]
+];
