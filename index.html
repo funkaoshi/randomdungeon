@@ -3,36 +3,38 @@
     <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="lodash.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
     <script type="text/javascript" src="rooms.js"></script>
     <script type="text/javascript">
-        function sample(list, count) {
-            
-        }
         $(function () {
           // re-create the dungeon key as users change the room count
           $('#rooms').keyup(function () {
             // read the number of rooms from the input box
             var $rooms = $(this);
             var totalRooms = parseInt($rooms.val(), 10);
-            
-            // max the value out based on the number of descriptions that 
+
+            // max the value out based on the number of descriptions that
             // are available.
             if (totalRooms > ROOMS.length) {
               totalRooms = ROOMS.length;
               $rooms.val(totalRooms);
             }
-            
+
             // split rooms into empty and filled
-            var emptyRooms = Math.floor(totalRooms * 0.1);
-            var filledRooms = totalRooms - emptyRooms;
+            var numEmptyRooms = Math.floor(totalRooms * 0.1);
+            var numFilledRooms = totalRooms - numEmptyRooms;
 
             // we randomly sample from the list of room descriptions and
-            // empty room descriptions
-            var dungeon = _.last(_.shuffle(ROOMS), filledRooms);
-            dungeon = dungeon.concat(_.last(_.shuffle(EMPTY_ROOMS), emptyRooms));
-            
-            // build the dungeon HTML
+            // empty room descriptions. we shuffle the result to get a random
+            // list of rooms.
+            var filledRooms = _(ROOMS).shuffle().last(numFilledRooms).value()
+            var emptyRooms = _(EMPTY_ROOMS).shuffle().last(numEmptyRooms).value()
+
+            var dungeon = filledRooms.concat(emptyRooms)
+
+            // build the dungeon HTML, inserting elements directly into the DOM.
+            // the list of rooms shouldn't contain JavaScript or this is going
+            // to produce some XSS.
             var $dungeon = $("<ol id='dungeon'></ol>");
             _(dungeon).shuffle().each(function (room) {
               $dungeon.append($("<li>" + room + "</li>"));
