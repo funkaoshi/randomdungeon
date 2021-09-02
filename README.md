@@ -11,7 +11,7 @@ and lots of dungeon.
 As I am known to do, [I turned the whole exercise into a website][3]. It keys random dungeons.
 Enjoy. This is the repository for the code that makes that all go.
 
-[zak]: http://dndwithpornstars.blogspot.ca/
+[zak]: https://dndwithpornstars.blogspot.ca/
 [1]: /blog/google-plus/
-[2]: http://dndwithpornstars.blogspot.ca/2014/02/stock-dungeon-with-rooms-that-dont-suck.html
-[3]: http://dungeon.totalpartykill.ca/
+[2]: https://dndwithpornstars.blogspot.ca/2014/02/stock-dungeon-with-rooms-that-dont-suck.html
+[3]: https://dungeon.totalpartykill.ca/
